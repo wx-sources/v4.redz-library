@@ -1,223 +1,107 @@
-# redz Library V4
-## Library loadstring
-```lua
+-- Carregando a biblioteca RedzLib V4
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/alodozhynn/RedzLibV4/main/Source.lua"))()
-```
 
-library functions
-```lua
-Library:SetTheme("Theme Name") -- https://raw.githubusercontent.com/alodozhynn/RedzLibV4/main/Themes.lua
-
-Library:SetTransparency(0.1) -- 0, 1
-
-Library:GetThemes() -- void, return = table
-
-Library:GetIcon("Icon Name")
-
--- ///////// 
-
-Library.info.PlaceName
-
-Library.info.Version
-```
-
-## Global Functions
-```lua
-Instance:Destroy()
-
-Instance:Visible(false)
-```
-
-## Window
-Create a Window
-```lua
-local Window = redzlib:MakeWindow({
+-- Criando a janela
+local Window = Library:MakeWindow({
   Title = "REDz HUB : Example",
   SubTitle = "by : redz9999",
   LoadText = "redz Hub",
   Flags = "redz Hub | Example.lua"
 })
 
---[[
-  Window:Set("New Title or Image")
-]]
-```
+-- Definindo o tema
+Library:SetTheme("Default")  -- Troque pelo nome do tema desejado
+Library:SetTransparency(0.1)  -- Definindo transparência (0 a 1)
 
-## Notification
-Create a Notification
-```lua
+-- Criando uma notificação
 local Notify = Library:MakeNotify({
-  Title = "Notification",
-  Text = "This is a Notification",
-  Time = 5
+  Title = "Bem-vindo!",
+  Text = "Você abriu o REDz Hub com sucesso!",
+  Time = 5  -- Duração da notificação em segundos
 })
 
---[[
-  Notify:Wait() -- Wait for the notification to end
-]]
-```
+-- Criando uma aba
+local Tab = Window:MakeTab({
+  Name = "Configurações",
+  Icon = "Settings"  -- Ícone para a aba
+})
 
-## Tab
-Create a Tab
-```lua
-local Tab = Window:MakeTab({Name = "Tab", Icon = "Home"})
+-- Criando uma seção dentro da aba
+local Section = Tab:AddSection({"Esta é uma seção de exemplo"})
 
---[[
-  Tab:Set("New Icon or Name")
-]]
-```
+-- Criando um parágrafo dentro da aba
+local Paragraph = Tab:AddParagraph({"Texto de exemplo", "Este é um parágrafo demonstrativo."})
 
-## Section
-Create a Section
-```lua
-local Section = Tab:AddSection({"This is a Section"})
+-- Criando um rótulo de texto
+local TextLabel = Tab:AddLabel({"Texto", "Este é um rótulo de texto."})
 
---[[
-  Section:Set("Section")
-]]
-```
+-- Criando um rótulo de imagem
+local ImageLabel = Tab:AddLabel({"Imagem", "Exemplo de imagem", "rbxassetid://1234567890"})  -- Troque pelo ID real da imagem
 
-## Paragraph
-Create a Paragraph
-```lua
-local Paragraph = Tab:AddParagraph({"Paragraph", "this is a Paragraph"})
-
---[[
-  Paragraph:Set("New Text")
-  
-  Paragraph:Set("New Name", "New Text")
-]]
-```
-
-## Label
-Create a Text Label
-```lua
-local TextLabel = Tab:AddLabel({"Text", "This is a Text Label"})
-
---[[
-  TextLabel:Set("New Name")
-]]
-```
-
-Create a Image Label
-```lua
-local ImageLabel = Tab:AddLabel({"Image", "This is a Image Label", "rbxassetid://"})
-
---[[
-  ImageLabel:Set("New Name", "New Image")
-]]
-```
-
-## Button
-Create a Button
-```lua
+-- Criando um botão
 local Button = Tab:AddButton({
-  Name = "Button",
+  Name = "Clique Aqui",
   Callback = function()
-    
+    print("Botão clicado!")
+    Library:MakeNotify({
+      Title = "Alerta!",
+      Text = "Você clicou no botão!",
+      Time = 3
+    })
   end
 })
 
---[[
-  Button:Callback(function()
-    
-  end)
-  
-  Button:Set("New Name")
-]]
-```
-
-## Toggle
-Create a Toggle
-```lua
+-- Criando um toggle (caixa de seleção)
 local Toggle = Tab:AddToggle({
-  Name = "Toggle",
+  Name = "Habilitar Funcionalidade",
   Default = false,
   Callback = function(Value)
-    
+    if Value then
+      print("Funcionalidade habilitada.")
+    else
+      print("Funcionalidade desabilitada.")
+    end
   end
 })
 
---[[
-  Toggle:Set(false)
-  
-  Toggle:Callback(function(Value)
-  
-  end)
-]]
-```
-
-## Dropdown
-Create a Dropdown
-```lua
+-- Criando um dropdown (lista suspensa)
 local Dropdown = Tab:AddDropdown({
-  Name = "Dropdown",
-  Options = {"1", "2", "3"}
-  Default = {"2"}
-  MultSelect = false
+  Name = "Escolha uma opção",
+  Options = {"Opção 1", "Opção 2", "Opção 3"},
+  Default = {"Opção 2"},
+  MultSelect = false,
   Callback = function(Value)
-    
+    print("Você escolheu: " .. Value)
   end
 })
 
---[[
-  Dropdown:Set({New Options}, Void)
-  -- Example : {
-    Dropdown:Set({"one", "two", "three"}, true)
-  }
-  
-  Dropdown:Callback(function(Value)
-    
-  end)
-]]
-```
-
-## Slider
-Create a Slider
-```lua
+-- Criando um slider (controle deslizante)
 local Slider = Tab:AddSlider({
-  Name = "Slider",
+  Name = "Ajuste o valor",
   MinValue = 1,
   MaxValue = 10,
   Default = 5,
   Increase = 1,
   Callback = function(Value)
-    
+    print("Valor ajustado para: " .. Value)
   end
 })
 
---[[
-  Slider:Set(7)
-  
-  Slider:Callback(function(Value)
-    
-  end)
-]]
-```
-
-## Extra
-Create a Discord Invite
-```lua
+-- Criando um botão de Discord (link para o servidor)
 Tab:AddDiscordInvite({
-  DiscordTitle = "REDz Hub | Community",
-  DiscordIcon = "rbxassetid://15298567397",
-  DiscordLink = "https://discord.gg/7aR7kNVt4g"
+  DiscordTitle = "REDz Hub | Comunidade",
+  DiscordIcon = "rbxassetid://15298567397",  -- Troque pelo ID correto da imagem do ícone
+  DiscordLink = "https://discord.gg/7aR7kNVt4g"  -- Link do seu servidor Discord
 })
-```
 
-Create a Minimize Button
-```lua
+-- Criando um botão de minimizar
 Window:AddMinimizeButton({
   Button = {
-    -- Button Properties
-    Image = "rbxassetid://15298567397"
+    Image = "rbxassetid://15298567397"  -- Troque pelo ID correto da imagem do botão
   },
-  UICorner = {true,
-    -- Corner Properties
-    CornerRadius = UDim.new(0.5, 0)
-  },
-  UIStroke = {false, {
-    -- Stroke Properties
-  }}
+  UICorner = {true, CornerRadius = UDim.new(0.5, 0)},
+  UIStroke = {false, {}}
 })
-```
+
+-- Aguardar a notificação terminar
+Notify:Wait()
